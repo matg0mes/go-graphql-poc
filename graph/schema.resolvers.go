@@ -26,9 +26,9 @@ func (r *mutationResolver) CreateCategory(ctx context.Context, input model.NewCa
 	}, nil
 }
 
-// CresteCourse is the resolver for the cresteCourse field.
-func (r *mutationResolver) CresteCourse(ctx context.Context, input model.NewCourse) (*model.Course, error) {
-	panic(fmt.Errorf("not implemented: CresteCourse - cresteCourse"))
+// CreateCourse is the resolver for the createCourse field.
+func (r *mutationResolver) CreateCourse(ctx context.Context, input model.NewCourse) (*model.Course, error) {
+	panic(fmt.Errorf("not implemented: CreateCourse - createCourse"))
 }
 
 // Categories is the resolver for the categories field.

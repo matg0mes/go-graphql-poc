@@ -61,7 +61,7 @@ type ComplexityRoot struct {
 
 	Mutation struct {
 		CreateCategory func(childComplexity int, input model.NewCategory) int
-		CresteCourse   func(childComplexity int, input model.NewCourse) int
+		CreateCourse   func(childComplexity int, input model.NewCourse) int
 	}
 
 	Query struct {
@@ -72,7 +72,7 @@ type ComplexityRoot struct {
 
 type MutationResolver interface {
 	CreateCategory(ctx context.Context, input model.NewCategory) (*model.Category, error)
-	CresteCourse(ctx context.Context, input model.NewCourse) (*model.Course, error)
+	CreateCourse(ctx context.Context, input model.NewCourse) (*model.Course, error)
 }
 type QueryResolver interface {
 	Categories(ctx context.Context) ([]*model.Category, error)
@@ -162,17 +162,17 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.CreateCategory(childComplexity, args["input"].(model.NewCategory)), true
 
-	case "Mutation.cresteCourse":
-		if e.complexity.Mutation.CresteCourse == nil {
+	case "Mutation.createCourse":
+		if e.complexity.Mutation.CreateCourse == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_cresteCourse_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_createCourse_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CresteCourse(childComplexity, args["input"].(model.NewCourse)), true
+		return e.complexity.Mutation.CreateCourse(childComplexity, args["input"].(model.NewCourse)), true
 
 	case "Query.categories":
 		if e.complexity.Query.Categories == nil {
@@ -292,7 +292,7 @@ func (ec *executionContext) field_Mutation_createCategory_args(ctx context.Conte
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_cresteCourse_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_createCourse_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 model.NewCourse
@@ -791,8 +791,8 @@ func (ec *executionContext) fieldContext_Mutation_createCategory(ctx context.Con
 	return fc, nil
 }
 
-func (ec *executionContext) _Mutation_cresteCourse(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Mutation_cresteCourse(ctx, field)
+func (ec *executionContext) _Mutation_createCourse(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_createCourse(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -805,7 +805,7 @@ func (ec *executionContext) _Mutation_cresteCourse(ctx context.Context, field gr
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CresteCourse(rctx, fc.Args["input"].(model.NewCourse))
+		return ec.resolvers.Mutation().CreateCourse(rctx, fc.Args["input"].(model.NewCourse))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -822,7 +822,7 @@ func (ec *executionContext) _Mutation_cresteCourse(ctx context.Context, field gr
 	return ec.marshalNCourse2ᚖgithubᚗcomᚋmatg0mesᚋgoᚑgraphqlᚑpocᚋgraphᚋmodelᚐCourse(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Mutation_cresteCourse(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_Mutation_createCourse(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Mutation",
 		Field:      field,
@@ -849,7 +849,7 @@ func (ec *executionContext) fieldContext_Mutation_cresteCourse(ctx context.Conte
 		}
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
-	if fc.Args, err = ec.field_Mutation_cresteCourse_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+	if fc.Args, err = ec.field_Mutation_createCourse_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
 	}
@@ -3074,10 +3074,10 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "cresteCourse":
+		case "createCourse":
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_cresteCourse(ctx, field)
+				return ec._Mutation_createCourse(ctx, field)
 			})
 
 			if out.Values[i] == graphql.Null {
